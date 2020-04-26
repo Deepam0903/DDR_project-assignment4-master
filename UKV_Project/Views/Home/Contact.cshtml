@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+    <br />
+
+    <p>The table provides spending details on the City’s voter-approved bond programs</p>
+    <input type=button onClick="location.href='https://data.austintexas.gov/api/views/kyp9-ynfw/rows.csv?accessType=DOWNLOAD'" value='Download data '>
+    <table class="tg">
+        <thead>
+            <tr>
+                <th>Row Id</th>
+                <th>Date</th>
+                <th>Fiscal Year</th>
+                <th>Fiscal Quarter</th>
+                <th>Bond Program Year</th>
+                <th>Proposition</th>
+                <th>Allocated</th>
+                <th>Expended</th>
+                <th>Percentage Expended</th>
+                <th>Encumbered</th>
+                <th>Percentage Encumbered</th>
+                <th>Avaiable</th>
+                <th>Percentage Available</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>@item.RowId</td>
+                <td>@item.Date</td>
+                <td>@item.FiscalYear</td>
+                <td>@item.FiscalQuarter</td>
+                <td>@item.BondPYear</td>
+                <td>@item.Proposition</td>
+                <td>@item.Allocated</td>
+                <td>@item.Expended</td>
+                <td>@item.PerExpended</td>
+                <td>@item.Encumbered</td>
+                <td>@item.PerEncumbered</td>
+                <td>@item.Availability</td>
+                <td>@item.PerAvailability</td>
+            </tr>
+            }
+           
+        </tbody>
+    </table>
+</body>
+</html>

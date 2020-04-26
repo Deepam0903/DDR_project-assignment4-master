@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Visualize";
+}
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+<figure class="highcharts-figure">
+    <div id="container"></div>
+    <p class="highcharts-description">
+        Line Chart of Propositions Vs Allocated 
+    </p>
+</figure>
+
+<script>
+    Highcharts.chart('container', {
+
+        title: {
+            text: 'Bond Summary'
+        },
+
+        subtitle: {
+            text: 'Source: thesolarfoundation.com'
+        },
+
+        yAxis: {
+            title: {
+                text: 'Allocated'
+            },
+            labels:
+            {
+                formatter: function () {
+                    return this.value + ' M';
+                }
+            }
+        },
+
+        xAxis: {
+            @{ string xAxisArray = "[" ;
+                string dataStr = "[";
+                foreach (var item in Model)
+                {
+                    xAxisArray += "\'" + item.Key + "\',";
+                    dataStr +=  item.Value + ",";
+                }
+                xAxisArray = xAxisArray.Remove(xAxisArray.Length - 1);
+                dataStr = dataStr.Remove(dataStr.Length - 1);
+              
+                xAxisArray += "]";
+                dataStr += "]";
+
+                }
+            categories: @Html.Raw(xAxisArray),
+            title: {
+                text: 'Propositions'
+            }
+            
+        },
+
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle'
+        },
+
+        plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: false
+        }
+        },
+
+        series: [{
+            name: 'Summary',
+            data: @Html.Raw(dataStr)
+        }],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+
+    });
+</script>
+    
